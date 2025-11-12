@@ -1,0 +1,78 @@
+# ────────────────────────────────
+# Global Git Ignore File
+# For: company_achievemnets/
+# ────────────────────────────────
+
+# -------------------------------
+# Dependencies
+# -------------------------------
+**/node_modules/
+**/.pnp
+**/.pnp.*
+**/.yarn/*
+!**/.yarn/patches
+!**/.yarn/plugins
+!**/.yarn/releases
+!**/.yarn/versions
+
+# -------------------------------
+# Testing
+# -------------------------------
+**/coverage/
+
+# -------------------------------
+# Next.js Build
+# -------------------------------
+**/.next/
+**/out/
+
+# -------------------------------
+# Production Builds
+# -------------------------------
+**/build/
+
+# -------------------------------
+# Misc
+# -------------------------------
+.DS_Store
+*.pem
+*.zip
+*.rar
+*.tsbuildinfo
+next-env.d.ts
+
+# -------------------------------
+# Logs & Debug Files
+# -------------------------------
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# -------------------------------
+# Environment Files
+# -------------------------------
+**/.env*
+!.env.example
+
+# -------------------------------
+# Custom Project Folders to Ignore
+# -------------------------------
+pdfDestination/
+pdfScanner/
+
+# -------------------------------
+# Vercel
+# -------------------------------
+.vercel
+
+# -------------------------------
+# Bytecode (Python)
+# -------------------------------
+*.pyc
+__pycache__/
+
+# -------------------------------
+# VSCode Workspace (Optional)
+# -------------------------------
+*.code-workspace
