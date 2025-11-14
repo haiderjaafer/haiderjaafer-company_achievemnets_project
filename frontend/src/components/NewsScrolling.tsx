@@ -1,7 +1,8 @@
+// components/NewsScroller.UPDATED.tsx
 'use client';
 
 import React, { useEffect, useState } from "react";
-import { Bell, Zap, TrendingUp } from "lucide-react";
+import { Bell, Zap, TrendingUp, Loader } from "lucide-react";
 
 interface NewsItem {
   id: number;
@@ -11,39 +12,44 @@ interface NewsItem {
 }
 
 interface NewsScrollerProps {
-  news: NewsItem[];
-  speed?: number; // milliseconds per item
+  news?: NewsItem[];
+  isLoading?: boolean;
+  error?: Error | null;
+  speed?: number;
   backgroundColor?: string;
   textColor?: string;
 }
 
 export const NewsScroller: React.FC<NewsScrollerProps> = ({
-  news,
+  news = [],
+  isLoading = false,
+  error = null,
   speed = 4000,
   backgroundColor = "bg-linear-to-r from-blue-600 via-purple-600 to-pink-600",
   textColor = "text-white",
 }) => {
   const [offset, setOffset] = useState(0);
 
-  // Duplicate news items many times for seamless loop
+  // Duplicate news items for seamless loop
   const duplicatedNews = Array.from({ length: 20 }, () => news).flat();
-  const itemWidth = 320; // Approximate width of each item in pixels
+  const itemWidth = 320;
 
   // Continuous scrolling animation
   useEffect(() => {
+    if (news.length === 0 || isLoading || error) return;
+
     const interval = setInterval(() => {
       setOffset((prev) => {
-        const newOffset = prev + 3; // Scroll by 2 pixels each frame
-        // Reset when we've scrolled through one cycle
+        const newOffset = prev + 3;
         if (newOffset >= news.length * itemWidth) {
           return 0;
         }
         return newOffset;
       });
-    }, 30); // Update every 30ms for smooth animation
+    }, 30);
 
     return () => clearInterval(interval);
-  }, [news.length]);
+  }, [news.length, isLoading, error]);
 
   const getIcon = (iconType?: 'bell' | 'zap' | 'trending') => {
     switch (iconType) {
@@ -57,6 +63,44 @@ export const NewsScroller: React.FC<NewsScrollerProps> = ({
         return <Bell className="w-4 h-4 shrink-0" />;
     }
   };
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className={`w-full ${backgroundColor} overflow-hidden relative`}>
+        <div className="py-3 px-4 flex items-center justify-center gap-2">
+          <Loader className="w-5 h-5 animate-spin text-white" />
+          <span className={`${textColor} font-semibold`}>جاري تحميل الأخبار...</span>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className={`w-full bg-linear-to-r from-red-600 to-red-700 overflow-hidden relative`}>
+        <div className="py-3 px-4">
+          <span className={`${textColor} font-semibold`}>
+            ⚠️ خطأ في تحميل الأخبار
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  // Empty state
+  if (news.length === 0) {
+    return (
+      <div className={`w-full ${backgroundColor} overflow-hidden relative`}>
+        <div className="py-3 px-4">
+          <span className={`${textColor} font-semibold`}>
+            لا توجد أخبار في هذا الوقت
+          </span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`w-full ${backgroundColor} overflow-hidden relative`}>

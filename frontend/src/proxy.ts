@@ -8,16 +8,23 @@ const ROLE_ROUTES = {
   upload: '/upload',
   viewer: '/viewer',
   Maintenence: '/maintenence',
-  demmo:"/"
-  
+  demo: '/',
   // Add more roles as needed
+  contracts: "/contracts"
 };
 
 // Public routes (no authentication required)
 const PUBLIC_ROUTES = ['/login', '/register'];
 
-// Routes that anyone can access (regardless of role)
-const OPEN_ROUTES = ['/profile', '/settings'];
+// Routes that anyone authenticated can access (regardless of role)
+const OPEN_ROUTES = [
+  '/',           // Home page - accessible to all authenticated users
+  '/profile',    // User profile
+  '/settings',   // User settings
+];
+
+// Routes that demo users can access (in addition to OPEN_ROUTES)
+const DEMO_ALLOWED_ROUTES = ['/upload'];
 
 // Get JWT secret
 function getJWTSecret() {
@@ -71,88 +78,92 @@ export async function proxy(request: NextRequest) {
     // 3. Prevent Authenticated Users from Accessing Auth Pages
     // ============================================
     if (pathname === '/login' || pathname === '/register') {
-      console.log('🏠 Already authenticated - redirecting based on role');
+      console.log('🏠 Already authenticated - redirecting to home page');
       
-      // Get role-specific route
-      const roleRoute = ROLE_ROUTES[userRole as keyof typeof ROLE_ROUTES] || '/';
-      return NextResponse.redirect(new URL(roleRoute, request.url));
+      // All authenticated users go to home page after login
+      return NextResponse.redirect(new URL('/', request.url));
     }
 
     // ============================================
-    // 4. Root Path (/) - Check Access Based on Role
+    // 4. Allow Access to Open Routes for All Authenticated Users
     // ============================================
-    if (pathname === '/') {
-      // Demo users can stay on root page
-      if (userRole === 'demo') {
-        console.log('✅ Demo user accessing home page');
-        return NextResponse.next();
-      }
-      
-      // Other roles redirect to their specific pages
-      console.log('🏠 Root path - redirecting to role-specific page');
-      const roleRoute = ROLE_ROUTES[userRole as keyof typeof ROLE_ROUTES];
-      
-      if (roleRoute && roleRoute !== '/') {
-        return NextResponse.redirect(new URL(roleRoute, request.url));
-      }
-      
-      // If no specific route, allow access
+    if (OPEN_ROUTES.some(route => {
+      // Exact match for routes
+      if (route === '/') return pathname === '/';
+      // StartsWith for other routes
+      return pathname.startsWith(route);
+    })) {
+      console.log('✅ Open route - allowing access for authenticated user');
       return NextResponse.next();
     }
 
     // ============================================
-    // 5. Role-Based Access Control
+    // 5. Admin Permission - Access Everything
     // ============================================
-    
-    // Allow access to open routes
-    if (OPEN_ROUTES.some(route => pathname.startsWith(route))) {
-      console.log('✅ Open route - allowing access');
-      return NextResponse.next();
-    }
-
-    // Admin can access everything
     if (userPermission === 'admin') {
       console.log('✅ Admin user - allowing access to all routes');
       return NextResponse.next();
     }
 
-    // Special handling for demo users - restrict to / and open routes only
+    // ============================================
+    // 6. Demo User Access Control
+    // ============================================
     if (userRole === 'demo') {
-      // Demo users can only access root (/) and open routes
-      const allowedForDemo = pathname === '/' || 
-                            OPEN_ROUTES.some(route => pathname.startsWith(route));
+      // Check if demo user is accessing an allowed route
+      const isAllowedForDemo = DEMO_ALLOWED_ROUTES.some(route => pathname.startsWith(route));
       
-      if (allowedForDemo) {
-        console.log('✅ Demo user accessing allowed route');
+      if (isAllowedForDemo) {
+        console.log('✅ Demo user accessing allowed route:', pathname);
         return NextResponse.next();
       } else {
-        console.log('🚫 Demo user trying to access restricted route - redirecting to home');
-        return NextResponse.redirect(new URL('/', request.url));
+        // Check if trying to access a restricted role-specific route
+        const isRoleSpecificRoute = Object.values(ROLE_ROUTES).some(
+          route => route !== '/' && pathname.startsWith(route)
+        );
+        
+        if (isRoleSpecificRoute) {
+          console.log('🚫 Demo user trying to access restricted route:', pathname, '- redirecting to home');
+          return NextResponse.redirect(new URL('/', request.url));
+        }
+        
+        // Allow other non-role-specific routes
+        console.log('✅ Demo user accessing non-restricted route');
+        return NextResponse.next();
       }
     }
 
-    // Check if user is accessing their allowed route
-    const roleRoute = ROLE_ROUTES[userRole as keyof typeof ROLE_ROUTES];
+    // ============================================
+    // 7. Role-Based Access Control for Regular Users
+    // ============================================
     
-    if (roleRoute && pathname.startsWith(roleRoute)) {
-      console.log(`✅ User with role "${userRole}" accessing allowed route: ${pathname}`);
+    // Get user's allowed route
+    const userRoleRoute = ROLE_ROUTES[userRole as keyof typeof ROLE_ROUTES];
+    
+    // Check if user is accessing their own role's route
+    if (userRoleRoute && userRoleRoute !== '/' && pathname.startsWith(userRoleRoute)) {
+      console.log(`✅ User with role "${userRole}" accessing their route: ${pathname}`);
       return NextResponse.next();
     }
 
-    // Check if user is trying to access a route for a different role
-    const accessingDifferentRoleRoute = Object.entries(ROLE_ROUTES).some(
-      ([role, route]) => role !== userRole && route !== '/' && pathname.startsWith(route)
+    // Check if user is trying to access a different role's route
+    const accessingOtherRoleRoute = Object.entries(ROLE_ROUTES).some(
+      ([role, route]) => {
+        // Skip root route and user's own route
+        if (route === '/' || role === userRole) return false;
+        // Check if accessing another role's route
+        return pathname.startsWith(route);
+      }
     );
 
-    if (accessingDifferentRoleRoute) {
-      console.log(`🚫 User with role "${userRole}" trying to access unauthorized route`);
+    if (accessingOtherRoleRoute) {
+      console.log(`🚫 User with role "${userRole}" trying to access another role's route: ${pathname}`);
       
-      // Redirect to their role-specific page
-      return NextResponse.redirect(new URL(roleRoute || '/', request.url));
+      // Redirect to home page (all users can access home)
+      return NextResponse.redirect(new URL('/', request.url));
     }
 
-    // Allow access to other routes
-    console.log('✅ Allowing access to route');
+    // Allow access to other non-role-specific routes
+    console.log('✅ Allowing access to non-restricted route');
     return NextResponse.next();
 
   } catch (error: any) {
