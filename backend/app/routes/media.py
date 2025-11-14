@@ -78,3 +78,41 @@ async def get_media_current_month(
             "end": end_date.isoformat()
         }
     }
+
+
+
+@router.get("/current-month/titles")
+async def get_current_month_titles(
+    category_id: int = Query(None, description="Optional: Filter by category ID"),
+    media_type: str = Query(None, description="Optional: Filter by type - 'image' or 'video'"),
+    db: AsyncSession = Depends(get_async_db)
+) -> Dict[str, Any]:
+    """
+    Get ONLY titles and basic info from current month
+    Lightweight endpoint perfect for lists/menus
+    
+    Query Parameters:
+    - category_id: Optional - e.g., ?category_id=1
+    - media_type: Optional - ?media_type=image or ?media_type=video
+    
+    Example requests:
+    - GET /api/media/current-month/titles
+    - GET /api/media/current-month/titles?category_id=1
+    - GET /api/media/current-month/titles?media_type=image
+    """
+    
+    titles, start_date, end_date = await MediaService.get_current_month_titles_only(
+        db,
+        category_id=category_id,
+        media_type=media_type
+    )
+    
+    return {
+        "success": True,
+        "data": titles,
+        "total": len(titles),
+        "date_range": {
+            "start": start_date.isoformat(),
+            "end": end_date.isoformat()
+        }
+    }

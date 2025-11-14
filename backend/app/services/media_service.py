@@ -180,7 +180,7 @@ class MediaService:
         Returns:
             Media object with paths relationship loaded, or None
         """
-        from sqlalchemy.orm import selectinload
+        
         
         # Query media with paths eagerly loaded
         result = await db.execute(
@@ -253,7 +253,142 @@ class MediaService:
         result = await db.execute(query)
         media_list = result.scalars().all()
         
-        return media_list, start_date, end_date    
+        return media_list, start_date, end_date
+
+
+
+
+
+
+    @staticmethod
+    async def get_current_month_titles(
+        db: AsyncSession,
+        category_id: int = None,
+        media_type: str = None
+    ) -> Tuple[List[Media], date, date]:
+        """
+        Get ALL media from current month (titles only - minimal data)
+        
+        Example: If today is 2025-11-15, returns all media from 2025-11-01 to 2025-11-30
+        
+        Args:
+            db: Database session
+            category_id: Optional - filter by category (e.g., 1)
+            media_type: Optional - filter by type ('image' or 'video')
+            
+        Returns:
+            Tuple of (media_list, start_date, end_date)
+        """
+        
+        today = date.today()
+        
+        # Get first day of current month
+        start_date = date(today.year, today.month, 1)
+        
+        # Get last day of current month
+        end_date = start_date + relativedelta(months=1) - relativedelta(days=1)
+        
+        # Convert to datetime for database query
+        start_datetime = datetime.combine(start_date, datetime.min.time())
+        end_datetime = datetime.combine(end_date, datetime.max.time())
+        
+        # Build query
+        query = select(Media).where(
+            and_(
+                Media.is_active == True,
+                Media.created_at >= start_datetime,
+                Media.created_at <= end_datetime
+            )
+        )
+        
+        # Apply optional filters
+        if category_id:
+            query = query.where(Media.category_id == category_id)
+        if media_type:
+            query = query.where(Media.media_type == media_type)
+        
+        # Order by created date (newest first)
+        query = query.order_by(desc(Media.created_at))
+        
+        # Load all relationships (including category and paths)
+        query = query.options(
+            selectinload(Media.category),
+            selectinload(Media.paths)
+        )
+        
+        # Execute query
+        result = await db.execute(query)
+        media_list = result.scalars().all()
+        
+        return media_list, start_date, end_date
+
+    @staticmethod
+    async def get_current_month_titles_only(
+        db: AsyncSession,
+        category_id: int = None,
+        media_type: str = None
+    ) -> Tuple[List[dict], date, date]:
+        """
+        Get ONLY titles and IDs from current month (lightweight)
+        Perfect for title lists/menus
+        
+        Args:
+            db: Database session
+            category_id: Optional - filter by category
+            media_type: Optional - filter by type
+            
+        Returns:
+            Tuple of (titles_list, start_date, end_date)
+        """
+        
+        today = date.today()
+        start_date = date(today.year, today.month, 1)
+        end_date = start_date + relativedelta(months=1) - relativedelta(days=1)
+        
+        start_datetime = datetime.combine(start_date, datetime.min.time())
+        end_datetime = datetime.combine(end_date, datetime.max.time())
+        
+        # Select only needed columns
+        query = select(
+            Media.id,
+            Media.title,
+            Media.description,
+            Media.category_id,
+            Media.media_type,
+            Media.created_at,
+            Media.is_active
+        ).where(
+            and_(
+                Media.is_active == True,
+                Media.created_at >= start_datetime,
+                Media.created_at <= end_datetime
+            )
+        )
+        
+        if category_id:
+            query = query.where(Media.category_id == category_id)
+        if media_type:
+            query = query.where(Media.media_type == media_type)
+        
+        query = query.order_by(desc(Media.created_at))
+        
+        result = await db.execute(query)
+        rows = result.all()
+        
+        titles = [
+            {
+                "id": row[0],
+                "title": row[1],
+                "description": row[2],
+                "category_id": row[3],
+                "media_type": row[4],
+                "created_at": row[5].isoformat() if row[5] else None,
+                "is_active": row[6],
+            }
+            for row in rows
+        ]
+        
+        return titles, start_date, end_date        
 
 
 
