@@ -58,7 +58,7 @@ export default function MediaUploadForm() {
     mutationFn: (data: MediaUploadRequest) =>
       uploadMedia(data, (progress) => setUploadProgress(progress)),
     onSuccess: (data) => {
-      toast.success(`Successfully uploaded ${data.total_files} file(s)!`);
+      toast.success(`تم حفظ المنشور${data.total_files} !`);
       
       // Invalidate media queries to refetch
       queryClient.invalidateQueries({ queryKey: ['media'] });
