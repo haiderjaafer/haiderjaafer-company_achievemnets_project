@@ -1,0 +1,93 @@
+/* ============================================
+   HEADER COMPONENT STYLES
+   Navigation header with logo and menu items
+   ============================================ */
+
+/* Header container: positioned at top of viewport */
+.header {
+  position: absolute; /* Position relative to hero container */
+  top: 0; /* Align to top edge */
+  left: 0; /* Align to left edge (explicit for clarity) */
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Vertically center logo and menu */
+  justify-content: space-between; /* Push logo left, menu right */
+  height: 100px; /* Fixed header height */
+  width: 100%; /* Full viewport width */
+  z-index: 100; /* Ensure header stays above other content */
+}
+
+/* Logo: brand identifier on the left */
+.logo {
+  margin-left: 50px; /* Space from left edge */
+  font-size: 30px; /* Large, prominent text */
+  font-weight: 800; /* Extra bold weight */
+  color: #f0f0f0; /* Light color for visibility on dark background */
+  cursor: pointer; /* Indicate clickability */
+  user-select: none; /* Prevent text selection */
+}
+
+/* Menu container: navigation links on the right */
+.menu {
+  display: flex; /* Horizontal layout for menu items */
+  align-items: center; /* Vertically center items */
+  margin-right: 40px; /* Space from right edge */
+  gap: 20px; /* Space between menu items (modern approach) */
+}
+
+/* Individual menu item: clickable navigation link */
+.menuItem {
+  font-size: 15px; /* Standard readable size */
+  color: #f0f0f0; /* Light color matching logo */
+  font-weight: 300; /* Light weight for elegance */
+  cursor: pointer; /* Indicate clickability */
+  transition: opacity 0.3s ease; /* Smooth hover effect */
+  user-select: none; /* Prevent text selection */
+}
+
+/* Menu item hover state: subtle interaction feedback */
+.menuItem:hover {
+  opacity: 0.7; /* Slight transparency on hover */
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   Adjust header for different screen sizes
+   ============================================ */
+
+/* Tablet and smaller screens */
+@media (max-width: 1024px) {
+  .logo {
+    margin-left: 30px; /* Reduce left margin */
+    font-size: 24px; /* Slightly smaller logo */
+  }
+
+  .menu {
+    margin-right: 30px; /* Reduce right margin */
+    gap: 15px; /* Reduce gap between items */
+  }
+
+  .menuItem {
+    font-size: 14px; /* Slightly smaller text */
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 768px) {
+  .header {
+    height: 80px; /* Reduce header height */
+  }
+
+  .logo {
+    margin-left: 20px; /* Further reduce margin */
+    font-size: 20px; /* Smaller logo for mobile */
+  }
+
+  .menu {
+    margin-right: 20px; /* Further reduce margin */
+    gap: 10px; /* Smaller gap between items */
+  }
+
+  .menuItem {
+    font-size: 12px; /* Smaller text for mobile */
+  }
+}

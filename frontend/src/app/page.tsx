@@ -10,6 +10,8 @@ import { useNewsTitles } from "../lib/hooks/useNewsTitles";
 import { NewsScroller } from "../components/NewsScrolling";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import SidebarComponent from "../components/Sidebar";
+import Link from "next/link";
+import HomePage from "../components/landing_page_gsap/MainPage";
 // import { WavyText } from "../components/WavyText";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -205,6 +207,18 @@ export default function Home() {
         <NewsScroller news={newsItems} />
       </div>
 
+      {/* <section className="h-10 flex items-center justify-end mr-4 gap-x-2">
+         <Link href={'/maintenence'}>
+          <li className="cursor-pointer list-none">هيأة الصيانة</li>
+        </Link>
+
+         <hr className="border-black size-2 mt-2" />
+
+        <Link href={'/upload'}>
+          <li className="cursor-pointer list-none">شعبة الاعلام</li>
+        </Link>
+      </section> */}
+
       {/* Main Layout */}
       <div className="flex flex-1 min-h-0 relative overflow-hidden">
         {/* Left: Scrollable Content */}
@@ -223,7 +237,7 @@ export default function Home() {
               </div>
               
               {/* Barrel - Absolutely positioned */}
-              <img
+              {/* <img
                 ref={barrelRef}
                 id="cans"
                 src="/img/refinery.png"
@@ -243,7 +257,9 @@ export default function Home() {
                   placeholder.innerText = "BARREL";
                   e.currentTarget.parentNode?.replaceChild(placeholder, e.currentTarget);
                 }}
-              />
+              /> */}
+
+             < HomePage/>
             </section>
 
 
@@ -478,15 +494,15 @@ export default function Home() {
         </div>
 
         {/* Right Sidebar */}
-        <aside className="w-[200px] shrink-0 bg-gray-100 border-l border-gray-300 flex flex-col overflow-hidden">
+        {/* <aside className="w-[200px] shrink-0 bg-gray-100 border-l border-gray-300 flex flex-col overflow-hidden">
           <SidebarComponent />
-        </aside>
+        </aside> */}
       </div>
 
       {/* Footer */}
-      <div className="shrink-0 z-20">
+      {/* <div className="shrink-0 z-20">
         <FooterComponent />
-      </div>
+      </div> */}
     </div>
   );
 }
