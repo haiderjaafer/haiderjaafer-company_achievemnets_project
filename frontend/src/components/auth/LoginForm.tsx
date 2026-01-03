@@ -110,7 +110,7 @@ const LoginForm: React.FC = () => {
           </h1>
 
           <p className="text-gray-600 mb-8 text-center">
-            اهلا وسهلا بكم في نظام ارشفة اللجان الالكتروني
+            اهلا وسهلا بكم في نظام انجازية الشركة الالكتروني
           </p>
 
           <form onSubmit={formSubmitHandler} className="space-y-6" noValidate>
@@ -230,7 +230,7 @@ const LoginForm: React.FC = () => {
           <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent"></div>
           <div className="absolute bottom-10 left-10 text-white p-4">
             <h2 className="text-3xl font-semibold mb-2">
-              نظام ارشفة اللجان الالكتروني
+              نظام انجازية الشركة الالكتروني
             </h2>
             <p className="text-lg">
               قسم تقنية المعلومات - شعبة الشبكات والانظمة البرمجية

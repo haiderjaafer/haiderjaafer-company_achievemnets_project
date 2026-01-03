@@ -1,0 +1,71 @@
+
+/* Image carousel container */
+.rwrap {
+  display: flex;
+  position: absolute;
+  left:0;
+  top: 15%;
+  
+  bottom: 0;
+  width: 45%;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Individual image group */
+.img1 {
+  transform: rotate(20deg);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Image styling */
+.img1 img {
+  width: 135px;
+  height: 200px;
+  object-fit: cover;
+  margin: 3px 15px;
+  border-radius: 30px;
+  will-change: transform;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.img1 img:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .rwrap {
+    width: 100%;
+    position: relative;
+    height: 60%;
+    padding: 10px;
+  }
+
+  .img1 img {
+    width: 180px;
+    height: 230px;
+    margin: 2px 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rwrap {
+    height: 50%;
+    padding: 5px;
+  }
+
+  .img1 {
+    transform: rotate(15deg);
+  }
+
+  .img1 img {
+    width: 120px;
+    height: 160px;
+    margin: 2px 5px;
+    border-radius: 15px;
+  }
+}

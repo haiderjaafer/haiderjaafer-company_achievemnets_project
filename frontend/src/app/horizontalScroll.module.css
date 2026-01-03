@@ -1,0 +1,194 @@
+
+/* Main content container - add padding for fixed header */
+.mainContent {
+  padding-top: 60px; /* Adjust based on your NewsScroller height */
+}
+
+
+/* Navigation */
+.nav {
+  z-index: 1000;
+  position: fixed;
+  top: calc(10% + 40px); /* Add NewsScroller height */
+  right: 1%;
+  color: lightsalmon;
+  display: flex;
+  flex-direction: column;
+}
+
+.menuItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 5px 10px;
+}
+
+.menuItem:hover {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+
+.menuItem:not(:last-child)::after {
+  content: "";
+  background-color: #fff;
+  width: 1px;
+  height: 40px;
+  opacity: 0.5;
+  margin: 10px 0;
+}
+
+/* Base section styles */
+.section {
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+/* Section 1 - HomePage (no background, component has its own) */
+#section-1 {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+
+
+
+
+/* Section 2 - ContinuousCarousel at bottom */
+.section2 {
+  background-color: white; /* gold */
+  color: #f60404;
+  /* border: 5px solid red; */
+  flex-direction: column; /* Stack vertically */
+  justify-content: space-between; /* Push content to top and bottom */
+  padding: 0;
+  position: relative;
+}
+
+.section2Content {
+  flex: 1; /* Take remaining space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 60px; /* Space for LoopText */
+
+}
+
+.section2Content h1 {
+  font-size: clamp(4rem, 10vw, 10rem);
+  color: #1206ef;
+  margin: 0;
+}
+
+.carouselContainer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* Add padding if needed */
+  padding-bottom: 2px;
+}
+
+/* end of  Section 2 */
+
+
+
+
+
+/* Section 3 */
+.section3 {
+  background-color: #fff; /* blueviolet */
+  color: #fff;
+  /* border: 5px solid red; */
+}
+
+.section3 h1 {
+  font-size: clamp(4rem, 10vw, 10rem);
+}
+
+/* Section 4 */
+.section4 {
+  background-color: #6366f1; /* cornflowerblue */
+  color: #fff;
+  /* border: 5px solid red; */
+}
+
+.section4 h1 {
+  font-size: clamp(4rem, 10vw, 10rem);
+}
+
+/* Horizontal scroll sections */
+.horizontalSection {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.horizontalWrapper {
+  display: flex;
+  height: 100vh;
+  width: 200vw; /* Width of both panels combined */
+  will-change: transform;
+}
+
+.horizontalPanel {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 5px solid red; */
+}
+
+.horizontalPanel h1 {
+  color: #fff;
+  font-size: clamp(4rem, 10vw, 10rem);
+  margin: 0;
+}
+
+/* Section 5 */
+.section5 {
+  background-color: #ef4444; /* tomato */
+  color: #fff;
+}
+
+/* Section 6 */
+.section6 {
+  background-color: #14b8a6; /* teal */
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+
+  .mainContent {
+    padding-top: 50px; /* Smaller padding on mobile */
+  }
+
+  .nav {
+    top: 10%;
+    right: 5%;
+  }
+
+  .menuItem {
+    font-size: 14px;
+  }
+
+  .section h1,
+  .horizontalPanel h1 {
+    font-size: clamp(2rem, 8vw, 6rem);
+  }
+}
