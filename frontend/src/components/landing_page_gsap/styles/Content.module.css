@@ -1,0 +1,127 @@
+/* ============================================
+   CONTENT COMPONENT STYLES
+   Hero text content with heading, paragraph, and CTA button
+   ============================================ */
+
+/* Content container: left-side text content area */
+.content {
+  display: flex; /* Use flexbox for vertical layout */
+  align-items: flex-start; /* Align items to left (changed from 'left' which is invalid) */
+  justify-content: center; /* Center vertically in container */
+  height: 50vh; /* Full viewport height */
+  width: 40vw; /* 30% of viewport width */
+  margin-left: 10px; /* Space from left edge */
+  margin-right: 50px; /* Space from images on right */
+  flex-direction: column; /* Vertical stacking of elements */
+}
+
+/* Main heading: large, bold hero text */
+.content h1 {
+  font-weight: 700; /* Bold weight */
+  font-size: 50px; /* Large, impactful size */
+  font-family: 'Bigilla', Georgia, serif; /* Custom font with serif fallback */
+  color: white; /* Pure white for maximum contrast */
+  line-height: 1.2; /* Tight line height for impact */
+  margin-bottom: 20px; /* Space below heading */
+}
+
+/* Heading line wrapper: creates overflow effect for animation */
+
+
+/* Individual heading lines: wrapped in divs for animation */
+.content h1 div {
+  overflow: hidden; /* Hide content that animates in from below */
+  margin-top: -40px; /* Negative margin to tighten line spacing */
+}
+
+/* Description paragraph: supporting text */
+.content p {
+  font-size: 40px; /* Standard readable size */
+  width: 80%; /* Constrain width for readability */
+  font-family: 'Poppins', -apple-system, sans-serif; /* Custom font with fallback */
+  font-weight: 200; /* Light weight for elegance */
+  color: #f0f0f0; /* Slightly off-white for softer look */
+  line-height: 1.6; /* Comfortable line height for reading */
+  margin-bottom: 5px; /* Space below paragraph */
+}
+
+/* Call-to-action button: primary interaction element */
+.content button {
+  width: 150px; /* Fixed button width */
+  padding: 15px 15px; /* Vertical and horizontal padding */
+  margin-top: 20px; /* Space above button */
+  font-family: sans-serif; /* Clean, neutral font */
+  text-transform: capitalize; /* Capitalize first letter */
+  font-size: 15px; /* Readable button text */
+  border: none; /* Remove default border */
+  background-color: #0c0c0c; /* Very dark background */
+  border-radius: 30px; /* Fully rounded corners (pill shape) */
+  color: white; /* White text for contrast */
+  cursor: pointer; /* Indicate clickability */
+  transition: all 0.3s ease; /* Smooth hover transition */
+  font-weight: 500; /* Medium weight for button text */
+}
+
+/* Button hover state: interactive feedback */
+.content button:hover {
+  background-color: #1a1a1a; /* Slightly lighter on hover */
+  transform: translateY(-2px); /* Subtle lift effect */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
+}
+
+/* Button active state: click feedback */
+.content button:active {
+  transform: translateY(0); /* Return to original position */
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   Adjust content for different screen sizes
+   ============================================ */
+
+/* Tablet and smaller screens */
+@media (max-width: 1024px) {
+  .content {
+    width: 50vw; /* Increase width on tablets */
+    margin-left: 100px; /* Reduce left margin */
+    margin-right: 30px; /* Reduce right margin */
+  }
+
+  .content h1 {
+    font-size: 40px; /* Smaller heading */
+  }
+
+  .content p {
+    width: 90%; /* Wider paragraph */
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 768px) {
+  .content {
+    width: 90vw; /* Nearly full width on mobile */
+    margin-left: 20px; /* Minimal left margin */
+    margin-right: 20px; /* Minimal right margin */
+    height: auto; /* Auto height for mobile */
+    padding-top: 100px; /* Space below header */
+  }
+
+  .content h1 {
+    font-size: 32px; /* Smaller heading for mobile */
+  }
+
+  .content h1 div {
+    margin-top: -20px; /* Adjust line spacing */
+  }
+
+  .content p {
+    width: 100%; /* Full width paragraph */
+    font-size: 14px; /* Slightly smaller text */
+  }
+
+  .content button {
+    width: 130px; /* Slightly smaller button */
+    padding: 12px 12px; /* Reduce padding */
+    font-size: 14px; /* Smaller text */
+  }
+}

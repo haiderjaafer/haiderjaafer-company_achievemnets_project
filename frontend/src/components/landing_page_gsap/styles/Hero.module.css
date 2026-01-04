@@ -1,0 +1,58 @@
+/* ============================================
+   HERO SECTION STYLES
+   Main container with dark theme and full viewport
+   ============================================ */
+
+/* Hero wrapper: full viewport container with dark theme */
+.hero {
+  /* Positioning */
+  position: relative;           /* Establish positioning context for absolute children */
+  width: 100%;                  /* Full viewport width */
+  height: 100vh;                /* Full viewport height */
+  
+  /* Layout */
+  overflow: hidden;             /* Hide any overflow content */
+  
+  /* Visual styles (moved from body) */
+  background-color: #242424;    /* Dark gray background */
+  color: #f0f0f0;              /* Light gray text for readability */
+  font-family: 'Monument', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  /* Prevent scrolling within hero section */
+  overflow-x: hidden;
+  overflow-y: hidden;
+  
+
+}
+
+/* Main content container: holds text content and images */
+.container {
+  display: flex;                /* Use flexbox for layout */
+  align-items: center;          /* Vertically center children */
+  justify-content: space-between; /* Space out content and images */
+  width: 100%;                  /* Full width */
+  height: 100vh;                /* Full viewport height */
+  flex-direction: row;          /* Horizontal layout (default) */
+  
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   Adjust layout for different screen sizes
+   ============================================ */
+
+/* Tablet and smaller screens */
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;     /* Stack elements vertically */
+    justify-content: center;    /* Center vertically */
+    padding: 20px;              /* Add padding on smaller screens */
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;              /* Reduce padding on mobile */
+  }
+}

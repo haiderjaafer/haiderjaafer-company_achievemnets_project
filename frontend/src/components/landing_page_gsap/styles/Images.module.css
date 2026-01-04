@@ -1,0 +1,147 @@
+/* ============================================
+   IMAGES COMPONENT STYLES
+   Three overlapping image boxes with background images
+   ============================================ */
+
+/* Images container: wrapper for all image boxes */
+.images {
+  position: relative; /* Establish positioning context for absolute children */
+  width: 100%; /* Full width of container */
+  height: 100%; /* Full height of container */
+}
+
+/* Image box 1: Top-right positioned box */
+.box1 {
+  position: absolute; /* Position relative to images container */
+  top: 10px; /* Distance from top */
+  right: 80px; /* Distance from right edge */
+  background: url('/images/img1.jpg') no-repeat 50% 50%; /* Background image centered */
+  background-size: cover; /* Scale image to cover entire box */
+  width: 250px; /* Fixed width */
+  height: 350px; /* Fixed height */
+  border: 0.5px solid gray; /* Subtle border */
+  overflow: hidden; /* Hide any overflow during animations */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  /* Animation end state - keeps element visible after GSAP animation */
+  opacity: 1; /* Fully visible */
+  transform: translateY(0) scale(1); /* Final position and normal size */
+}
+
+/* Image box 2: Center-right positioned box (largest) */
+.box2 {
+  position: absolute; /* Position relative to images container */
+  top: 150px; /* Distance from top */
+  right: 410px; /* Distance from right edge */
+  background: url('/images/img2.jpg') no-repeat 50% 50%; /* Background image centered */
+  background-size: cover; /* Scale image to cover entire box */
+  width: 350px; /* Fixed width (largest box) */
+  height: 450px; /* Fixed height (tallest box) */
+  border: 0.5px solid gray; /* Subtle border */
+  overflow: hidden; /* Hide any overflow during animations */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  /* Animation end state - keeps element visible after GSAP animation */
+  opacity: 1; /* Fully visible */
+  transform: translateY(0) scale(1); /* Final position and normal size */
+}
+
+/* Image box 3: Bottom-right positioned box */
+.box3 {
+  position: absolute; /* Position relative to images container */
+  top: 400px; /* Distance from top */
+  right: 10px; /* Distance from right edge */
+  background: url('/images/img3.jpg') no-repeat 50% 50%; /* Background image centered */
+  background-size: cover; /* Scale image to cover entire box */
+  width: 350px; /* Fixed width */
+  height: 250px; /* Fixed height */
+  border: 0.5px solid gray; /* Subtle border */
+  overflow: hidden; /* Hide any overflow during animations */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  /* Animation end state - keeps element visible after GSAP animation */
+  opacity: 1; /* Fully visible */
+  transform: translateY(0) scale(1); /* Final position and normal size */
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   Adjust image boxes for different screen sizes
+   ============================================ */
+
+/* Tablet and smaller screens */
+@media (max-width: 1024px) {
+  /* Adjust box 1 for tablets */
+  .box1 {
+    top: 80px; /* Move higher */
+    right: 50px; /* Move closer to edge */
+    width: 200px; /* Reduce width */
+    height: 280px; /* Reduce height */
+  }
+
+  /* Adjust box 2 for tablets */
+  .box2 {
+    top: 200px; /* Adjust position */
+    right: 280px; /* Move left */
+    width: 280px; /* Reduce width */
+    height: 360px; /* Reduce height */
+  }
+
+  /* Adjust box 3 for tablets */
+  .box3 {
+    top: 400px; /* Move higher */
+    right: 10px; /* Keep at edge */
+    width: 280px; /* Reduce width */
+    height: 320px; /* Reduce height */
+  }
+}
+
+/* Mobile screens - hide images or stack differently */
+@media (max-width: 768px) {
+  /* Hide all images on mobile for cleaner layout */
+  /* Alternative: could stack them vertically or show just one */
+  .box1,
+  .box2,
+  .box3 {
+    display: none; /* Hide images on mobile */
+  }
+
+  /* Alternative mobile layout (uncomment if you want to show images):
+  .box1 {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 90%;
+    height: 250px;
+    margin: 20px auto;
+  }
+
+  .box2 {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 90%;
+    height: 300px;
+    margin: 20px auto;
+  }
+
+  .box3 {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 90%;
+    height: 250px;
+    margin: 20px auto;
+  }
+  */
+}
+
+/* ============================================
+   IMAGE HOVER EFFECTS (Optional)
+   Add subtle interaction on hover
+   ============================================ */
+
+.box1:hover,
+.box2:hover,
+.box3:hover {
+  transform: scale(1.02); /* Slight zoom on hover */
+  transition: transform 0.3s ease; /* Smooth transition */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); /* Stronger shadow on hover */
+}
