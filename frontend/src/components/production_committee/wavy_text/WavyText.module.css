@@ -2,7 +2,7 @@
 .textContainer {
   position: absolute;
   bottom: 40px;
-  right: 40px;
+  right: 120px;
   width: 45%;
   z-index: 10;
 }

@@ -1,7 +1,7 @@
 .chartContainer {
   position: absolute;
-  top: 80px;
-  right: 50px;
+  top: 250px;
+  right: 100px;
   width: 48%;
   height: 50%;
   z-index: 5;
