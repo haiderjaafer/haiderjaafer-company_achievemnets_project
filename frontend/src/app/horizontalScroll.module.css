@@ -66,7 +66,7 @@
 
 /* Section 2 - ContinuousCarousel at bottom */
 .section2 {
-  background-color: white; /* gold */
+  background-color: #242424; /* gold */
   color: #f60404;
   /* border: 5px solid red; */
   flex-direction: column; /* Stack vertically */
@@ -108,7 +108,7 @@
 
 /* Section 3 */
 .section3 {
-  background-color: #fff; /* blueviolet */
+  background-color: #242424; /* blueviolet */
   color: #fff;
   /* border: 5px solid red; */
 }

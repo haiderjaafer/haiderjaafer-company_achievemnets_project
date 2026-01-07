@@ -110,7 +110,7 @@ const Content: React.FC<TimelineProps> = ({ timeline }) => {
   return (
     <div className={styles.content}>
       {/* H1 with cool animation */}
-      <h1 
+      {/* <h1 
         ref={h1Ref}
         style={{
           transformStyle: 'preserve-3d',
@@ -118,10 +118,10 @@ const Content: React.FC<TimelineProps> = ({ timeline }) => {
         }}
       >
         العمود الفقري لصناعة
-      </h1>
+      </h1> */}
 
       {/* P with cool animation */}
-      <p 
+      {/* <p 
         ref={pRef}
         style={{
           transformStyle: 'preserve-3d',
@@ -129,7 +129,7 @@ const Content: React.FC<TimelineProps> = ({ timeline }) => {
         }}
       >
         التكرير في وسط العراق
-      </p>
+      </p> */}
 
       {/* Chart card */}
       <div

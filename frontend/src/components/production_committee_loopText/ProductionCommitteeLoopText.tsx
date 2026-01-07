@@ -17,7 +17,7 @@ export default function ProductionCommitteeLoopText() {
     if (textRef.current) {
       gsap.to(textRef.current, {
         duration: 3,
-        text: "هيأة الانتاج قسم التكرير",
+        text: "وزارة النفط - شركة مصافي الوسط - مصفى الدورة - هيأة الانتاج - قسم التكرير",
         ease: "power1.inOut",
         repeat: -1,
         yoyo: true,

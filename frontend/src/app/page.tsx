@@ -17,6 +17,7 @@ import ProductionCommitteeLoopText from '../components/production_committee_loop
 import WavyText from '../components/production_committee/wavy_text/WavyText';
 import ProductionCommitteeImagesCarousel from '../components/production_committee/production_committee_images_carousel/ProductionCommitteeImagesCarousel';
 import ProductionChart from '../components/production_committee/production_chart/ProductionChart';
+import MaintainenceLoopText from '../components/maintainence_loopText/MaintainenceLoopText';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, useGSAP);
@@ -138,13 +139,13 @@ export default function Home() {
             className={styles.menuItem} 
             onClick={() => handleNavClick('#section-4')}
           >
-            04
+            هيأة الدهون
           </a>
           <a 
             className={styles.menuItem} 
             onClick={() => handleNavClick('#horizontal-section')}
           >
-            05
+            مصفى كربلاء
           </a>
           <a 
             className={styles.menuItem} 
@@ -156,6 +157,7 @@ export default function Home() {
 
         {/* Section 1: HomePage (GSAP Landing Page) */}
         <section dir='' id="section-1" className={styles.section}>
+          <MaintainenceLoopText/>
           <HomePage />
         </section>
 
@@ -231,7 +233,7 @@ export default function Home() {
 
         {/* Section 4 */}
         <section id="section-4" className={`${styles.section} ${styles.section4}`}>
-          <h1>Section 4</h1>
+          <h1>هيأة الدهون</h1>
 
         </section>
 
@@ -244,7 +246,7 @@ export default function Home() {
           <div ref={horizontalWrapperRef} className={styles.horizontalWrapper}>
             {/* Section 5 */}
             <section id="section-5" className={`${styles.horizontalPanel} ${styles.section5}`}>
-              <h1>Section 5</h1>
+              <h1>مصفى كربلاء</h1>
             </section>
 
             {/* Section 6 */}

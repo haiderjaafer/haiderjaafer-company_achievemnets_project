@@ -1,7 +1,7 @@
 
 .loopTextContainer {
   position: absolute;
-  top: 100px; /* Below NewsScroller */
+  top: 50px; /* Below NewsScroller */
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
@@ -15,7 +15,7 @@
 .text {
   font-size: clamp(1.5rem, 4vw, 3rem);
   font-weight: 600;
-  color: #0e0e0e; /* Tailwind red-700 equivalent */
+  color: #f0e8e8; /* Tailwind red-700 equivalent */
   text-align: center;
   white-space: nowrap;
   transition: all 0.3s ease;

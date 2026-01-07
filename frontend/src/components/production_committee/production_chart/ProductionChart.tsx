@@ -78,7 +78,8 @@ export default function ProductionChart() {
         start: 'top 80%', // Start when container is 80% down the viewport
         end: 'bottom 20%',
         // markers: true, // Enable for debugging
-        once: true,
+        // once: true,
+        scrub:true,
         onEnter: () => {
           console.log('Chart ScrollTrigger fired!');
           

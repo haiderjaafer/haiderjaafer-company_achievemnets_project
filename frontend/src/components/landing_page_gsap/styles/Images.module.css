@@ -25,6 +25,7 @@
   /* Animation end state - keeps element visible after GSAP animation */
   opacity: 1; /* Fully visible */
   transform: translateY(0) scale(1); /* Final position and normal size */
+  border-radius: 20px;
 }
 
 /* Image box 2: Center-right positioned box (largest) */
@@ -42,6 +43,7 @@
   /* Animation end state - keeps element visible after GSAP animation */
   opacity: 1; /* Fully visible */
   transform: translateY(0) scale(1); /* Final position and normal size */
+  border-radius: 20px;
 }
 
 /* Image box 3: Bottom-right positioned box */
@@ -59,6 +61,7 @@
   /* Animation end state - keeps element visible after GSAP animation */
   opacity: 1; /* Fully visible */
   transform: translateY(0) scale(1); /* Final position and normal size */
+  border-radius: 20px;
 }
 
 /* ============================================

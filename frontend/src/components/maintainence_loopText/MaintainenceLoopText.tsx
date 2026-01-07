@@ -4,11 +4,11 @@ import { useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
 import { useGSAP } from '@gsap/react';
-import styles from './LoopText.module.css';
+import styles from './MaintainenceLoopText.module.css';
 
 gsap.registerPlugin(TextPlugin, useGSAP);
 
-export default function LoopText() {
+export default function MaintainenceLoopText() {
   const textRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isActive, setIsActive] = useState(false);
@@ -17,7 +17,7 @@ export default function LoopText() {
     if (textRef.current) {
       gsap.to(textRef.current, {
         duration: 3,
-        text: "وزارة النفط - شركة مصافي الوسط - مصفى الدورة -شعبة الاعلام",
+        text: "وزارة النفط - شركة مصافي الوسط - مصفى الدورة -هيأة الصيانة",
         ease: "power1.inOut",
         repeat: -1,
         yoyo: true,
