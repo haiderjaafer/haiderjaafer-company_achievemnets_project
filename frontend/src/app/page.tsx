@@ -18,6 +18,7 @@ import WavyText from '../components/production_committee/wavy_text/WavyText';
 import ProductionCommitteeImagesCarousel from '../components/production_committee/production_committee_images_carousel/ProductionCommitteeImagesCarousel';
 import ProductionChart from '../components/production_committee/production_chart/ProductionChart';
 import MaintainenceLoopText from '../components/maintainence_loopText/MaintainenceLoopText';
+import Navbar from '../components/navbar/Navbar';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, useGSAP);
@@ -112,7 +113,13 @@ export default function Home() {
       {/* News Scroller - Fixed at top */}
       <div className="shrink-0 z-20 fixed top-0 left-0 right-0">
         <NewsScroller news={newsItems} />
+
+         <div>
+        <Navbar/>
       </div>
+      </div>
+
+     
 
       <div ref={mainContainerRef} className={styles.mainContent}>
         {/* Navigation */}

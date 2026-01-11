@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { NewsScroller } from "../components/NewsScrolling";
-import { carouselItems, newsItems } from "./page";
-import { ContinuousCarousel } from "../components/AnimatedCarousel";
 import QueryProvider from "./providers/QueryProvider";
 import ToastProvider from "./providers/ToastProvider";
-import Sidebar from "../components/Sidebar";
 import LayoutWrapper from "./LayoutWrapper";
-import FooterComponent from "../components/FooterComponent";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

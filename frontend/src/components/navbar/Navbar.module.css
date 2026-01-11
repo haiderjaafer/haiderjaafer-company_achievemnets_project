@@ -1,0 +1,25 @@
+
+.header{
+
+display: flex;
+justify-content: space-between ;
+background-color: wheat;
+margin: 0px 1px;
+padding: 5px 10px;
+
+}
+
+.ul{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    column-gap: 20px;
+    
+    
+
+}
+
+li:hover{
+    color:lightblue;
+}
+
