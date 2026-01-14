@@ -1,7 +1,7 @@
 
 .loopTextContainer {
   position: absolute;
-  top: 50px; /* Below NewsScroller */
+  top: 90px; /* Below NewsScroller */
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;

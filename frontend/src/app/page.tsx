@@ -18,7 +18,8 @@ import WavyText from '../components/production_committee/wavy_text/WavyText';
 import ProductionCommitteeImagesCarousel from '../components/production_committee/production_committee_images_carousel/ProductionCommitteeImagesCarousel';
 import ProductionChart from '../components/production_committee/production_chart/ProductionChart';
 import MaintainenceLoopText from '../components/maintainence_loopText/MaintainenceLoopText';
-import Navbar from '../components/navbar/Navbar';
+import { Navbar } from '@/components/Navbar';
+// import Navbar from '../components/navbar/Navbar';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, useGSAP);
@@ -115,6 +116,7 @@ export default function Home() {
         <NewsScroller news={newsItems} />
 
          <div>
+        {/* <Navbar/> */}
         <Navbar/>
       </div>
       </div>
@@ -158,7 +160,7 @@ export default function Home() {
             className={styles.menuItem} 
             onClick={() => handleNavClick('#horizontal-section')}
           >
-            06
+            الموارد البشرية
           </a>
         </nav>
 

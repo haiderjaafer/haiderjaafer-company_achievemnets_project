@@ -5,6 +5,7 @@
 
 /* Images container: wrapper for all image boxes */
 .images {
+  top: 20%;
   position: relative; /* Establish positioning context for absolute children */
   width: 100%; /* Full width of container */
   height: 100%; /* Full height of container */
@@ -13,7 +14,7 @@
 /* Image box 1: Top-right positioned box */
 .box1 {
   position: absolute; /* Position relative to images container */
-  top: 10px; /* Distance from top */
+  top: 20px; /* Distance from top */
   right: 80px; /* Distance from right edge */
   background: url('/images/img1.jpg') no-repeat 50% 50%; /* Background image centered */
   background-size: cover; /* Scale image to cover entire box */

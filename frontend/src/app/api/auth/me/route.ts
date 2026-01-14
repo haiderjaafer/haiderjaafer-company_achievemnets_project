@@ -1,4 +1,4 @@
-import { verifyTokenForPage } from '@/src/lib/utils/verifyToken';
+import { verifyTokenForPage } from '@/lib/utils/verifyToken';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 

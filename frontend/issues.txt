@@ -1,0 +1,11 @@
+error: unknown option '--legacy-peer-deps'
+
+now i got type C:\Users\User\AppData\Local\npm-cache\_logs\2026-01-14T05_18_49_934Z-eresolve-report.txt
+bash: type: C:UsersUserAppDataLocalnpm-cache_logs2026-01-14T05_18_49_934Z-eresolve-report.txt: not found   and see  "next": "16.0.1",
+    "react": "19.2.0",
+
+    solution
+
+    npm_config_legacy_peer_deps=true 
+    
+    
