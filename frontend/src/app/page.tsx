@@ -154,7 +154,7 @@ export default function Home() {
             className={styles.menuItem} 
             onClick={() => handleNavClick('#horizontal-section')}
           >
-            مصفى كربلاء
+             الفنية والهندسية
           </a>
           <a 
             className={styles.menuItem} 
@@ -168,6 +168,9 @@ export default function Home() {
         <section dir='' id="section-1" className={styles.section}>
           <MaintainenceLoopText/>
           <HomePage />
+
+        <hr className={styles.sectionDividerSolid} />
+
         </section>
 
         {/* Section 2: ContinuousCarousel at bottom */}
@@ -226,6 +229,8 @@ export default function Home() {
                <div className={styles.carouselContainer}>
                    <ContinuousCarousel />
                       </div>
+
+                      <hr className={styles.sectionDividerSolid} />
 </section>
 
         {/* Section 3 */}
@@ -238,11 +243,14 @@ export default function Home() {
           <ProductionCommitteeImagesCarousel/>
 
           <WavyText/>
+          <hr className={styles.sectionDividerSolid} />
         </section>
 
         {/* Section 4 */}
         <section id="section-4" className={`${styles.section} ${styles.section4}`}>
           <h1>هيأة الدهون</h1>
+
+          <hr className={styles.sectionDividerSolid} />
 
         </section>
 
@@ -255,12 +263,14 @@ export default function Home() {
           <div ref={horizontalWrapperRef} className={styles.horizontalWrapper}>
             {/* Section 5 */}
             <section id="section-5" className={`${styles.horizontalPanel} ${styles.section5}`}>
-              <h1>مصفى كربلاء</h1>
+              <h1>الهيأة الفنية والهندسية</h1>
+              <hr className={styles.sectionDividerSolid} />
             </section>
 
             {/* Section 6 */}
             <section id="section-6" className={`${styles.horizontalPanel} ${styles.section6}`}>
-              <h1>Section 6</h1>
+              <h1>قسم ادارة الموارد البشرية</h1>
+              <hr className={styles.sectionDividerSolid} />
             </section>
           </div>
         </div>

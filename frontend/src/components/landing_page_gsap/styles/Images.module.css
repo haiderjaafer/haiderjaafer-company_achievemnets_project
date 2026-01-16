@@ -9,6 +9,7 @@
   position: relative; /* Establish positioning context for absolute children */
   width: 100%; /* Full width of container */
   height: 100%; /* Full height of container */
+  margin-bottom: 50px;
 }
 
 /* Image box 1: Top-right positioned box */
@@ -55,7 +56,7 @@
   background: url('/images/img3.jpg') no-repeat 50% 50%; /* Background image centered */
   background-size: cover; /* Scale image to cover entire box */
   width: 350px; /* Fixed width */
-  height: 250px; /* Fixed height */
+  height: 200px; /* Fixed height */
   border: 0.5px solid gray; /* Subtle border */
   overflow: hidden; /* Hide any overflow during animations */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */

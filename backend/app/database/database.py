@@ -26,7 +26,7 @@ AsyncSessionLocal = sessionmaker(
 # Base class for ORM models
 Base = declarative_base()
 
-
+#see docs
 async def get_async_db() -> AsyncGenerator[AsyncSession, None]:
     async with AsyncSessionLocal() as session:
         yield session
