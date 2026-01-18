@@ -215,11 +215,14 @@ class MediaService:
         
         today = date.today()
         
+        # see Docs
         # Get first day of current month
         start_date = date(today.year, today.month, 1)
         
         # Get last day of current month
         end_date = start_date + relativedelta(months=1) - relativedelta(days=1)
+        
+        print(f"end_date... ${end_date}")
         
         # Convert to datetime for database query
         start_datetime = datetime.combine(start_date, datetime.min.time())
@@ -233,6 +236,8 @@ class MediaService:
                 Media.created_at <= end_datetime
             )
         )
+
+        # print(f"query Media...${query}")
         
         # Apply optional filters
         if category_id:
@@ -248,6 +253,8 @@ class MediaService:
             selectinload(Media.paths),
             selectinload(Media.category)
         )
+
+        # print(f"query options..${query}")
         
         # Execute query
         result = await db.execute(query)
