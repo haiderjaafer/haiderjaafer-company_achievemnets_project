@@ -52,6 +52,7 @@ class MediaUploadService:
                 return False, f"Invalid image extension: {file_ext}. Allowed: {MediaUploadService.ALLOWED_IMAGE_EXTENSIONS}"
             
             # Validate MIME type
+            # see Docs
             if file.content_type not in MediaUploadService.ALLOWED_IMAGE_MIMES:
                 return False, f"Invalid image MIME type: {file.content_type}"
         

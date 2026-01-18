@@ -1,0 +1,29 @@
+
+ # Build query
+        query = select(Media).where(
+            and_(
+                Media.is_active == True,
+                Media.created_at >= start_datetime,
+                Media.created_at <= end_datetime
+            )
+        )
+
+        print(f"query Media...${query}")
+
+query Media...$SELECT "Media".id, "Media".title, "Media".description, "Media".category_id, "Media".user_id, "Media".media_type, "Media".is_active, "Media".created_at, "Media".updated_at, "Media".updated_by
+FROM "Media"
+WHERE "Media".is_active = true AND "Media".created_at >= :created_at_1 AND "Media".created_at <= :created_at_2
+
+#------------------------------------------------------------------------
+
+query = query.options(
+            selectinload(Media.paths),
+            selectinload(Media.category)
+        )
+
+        print(f"query options..${query}")
+
+
+query options..$SELECT "Media".id, "Media".title, "Media".description, "Media".category_id, "Media".user_id, "Media".media_type, "Media".is_active, "Media".created_at, "Media".updated_at, "Media".updated_by
+FROM "Media"
+WHERE "Media".is_active = true AND "Media".created_at >= :created_at_1 AND "Media".created_at <= :created_at_2 ORDER BY "Media".created_at DESC

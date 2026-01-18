@@ -38,7 +38,7 @@ interface NavbarProps {
 
 const NAV_ITEMS: NavItem[] = [
   {
-    title: 'الإضافة',
+    title: 'الجهات',
     children: [
       {
         title: 'هيأة الانتاج',

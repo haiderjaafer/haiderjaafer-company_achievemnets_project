@@ -1,0 +1,34 @@
+
+if file_ext not in MediaUploadService.ALLOWED_IMAGE_EXTENSIONS:
+                return False, f"Invalid image extension: {file_ext}. Allowed: {MediaUploadService.ALLOWED_IMAGE_EXTENSIONS}"
+            
+
+Yes, a file on the web or in a system transfer context has a Content-Type (also known as a MIME type or media type). 
+Key Facts about Content-Type:
+Purpose: It identifies the format of the data (e.g., text/html, image/png, application/pdf) so browsers or servers know how to process or display it.
+HTTP Header: When files are transferred over HTTP, the Content-Type header is sent to describe the data.
+File Uploads: When you upload a file via a browser, the browser usually determines the content-type based on the file extension.
+Not Always Accurate: While a file has a content-type, 
+it can sometimes be misconfigured on a server (e.g., serving a PDF as application/octet-stream or a wrong type). 
+How to determine it:
+From Browser/Server: It is read from the Content-Type HTTP header.
+From File/Binary Data: Tools can "sniff" the content or read the magic numbers (file signature) to determine the type if it is unknown
+
+examples 
+
+from fastapi import Request
+
+@app.post("/upload")
+async def upload_file(request: Request):
+    content_type = request.headers.get('Content-Type')
+    # Further processing
+
+
+import requests
+
+response = requests.get('https://api.github.com/events')
+content_type = response.headers['Content-Type']
+# or use .get() for safer access:
+# content_type = response.headers.get('Content-Type')
+
+print(f"The content type is: {content_type}")
