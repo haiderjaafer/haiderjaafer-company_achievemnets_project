@@ -7,11 +7,15 @@ import { Button } from './ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from './ui/sheet';
 import { motion, AnimatePresence } from 'framer-motion';
 import RotatingLogo from './RotatingLogo/RotatingLogo';
-import UserDropdown from './UserDropdownMenu';
 import { cn } from '@/lib/utils/cn';
 import { easeIn, easeOut } from "framer-motion";
+import { gsap } from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
-
+// Register GSAP ScrollToPlugin
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollToPlugin);
+}
 
 export type NavItem = {
   title: string;
@@ -19,6 +23,7 @@ export type NavItem = {
   target?: string;
   children?: NavItem[];
   description?: string;
+  sectionId?: string; // Add sectionId for scroll navigation
 };
 
 interface UserData {
@@ -37,12 +42,12 @@ const NAV_ITEMS: NavItem[] = [
     children: [
       {
         title: 'هيأة الانتاج',
-        href: '/#',
+        sectionId: 'section-3', // Link to Section 3 (Production/التكرير)
         description: 'اضافة بيانات هيأة الانتاج',
       },
       {
         title: 'هيأة الصيانة',
-        href: '/#',
+        sectionId: 'section-1', // Link to Section 1 (Maintenance/الصيانة)
         description: 'اضافة بيانات هيأة الصيانة',
       },
     ],
@@ -52,8 +57,8 @@ const NAV_ITEMS: NavItem[] = [
     children: [
       {
         title: 'بحث',
-        href: '/#',
-        description: 'خيارات البحث مع فلاتر متعددة وتعديل معلومات ',
+        sectionId: 'section-4',
+        description: 'خيارات البحث مع فلاتر متعددة وتعديل معلومات',
       },
     ],
   },
@@ -62,17 +67,14 @@ const NAV_ITEMS: NavItem[] = [
     children: [
       {
         title: 'تقرير هيأة الانتاج',
-        href: '/#',
-        description: 'تقرير انجازية الانتاج   ',
+        sectionId: 'section-3',
+        description: 'تقرير انجازية الانتاج',
       },
-
-       {
+      {
         title: 'تقرير هيأة الصيانة',
-        href: '/#',
-        description: 'تقرير تقرير انجازية هيأة الصيانة ',
+        sectionId: 'section-1',
+        description: 'تقرير تقرير انجازية هيأة الصيانة',
       },
-
-      
     ],
   },
 ];
@@ -82,56 +84,33 @@ export function Navbar({ userData }: NavbarProps) {
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
-
-
   const menuVariants = {
-  hidden: {
-    opacity: 0,
-    y: -10,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.3,
-      ease: easeOut,
+    hidden: { opacity: 0, y: -10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.3, ease: easeOut },
     },
-  },
-  exit: {
-    opacity: 0,
-    y: -10,
-    transition: {
-      duration: 0.2,
-      ease: easeIn,
+    exit: {
+      opacity: 0,
+      y: -10,
+      transition: { duration: 0.2, ease: easeIn },
     },
-  },
-};
-
-
+  };
 
   const submenuVariants = {
-  hidden: {
-    opacity: 0,
-    scale: 0.95,
-  },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.3,
-      ease: easeOut,
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.3, ease: easeOut },
     },
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.95,
-    transition: {
-      duration: 0.2,
-      ease: easeIn,
+    exit: {
+      opacity: 0,
+      scale: 0.95,
+      transition: { duration: 0.2, ease: easeIn },
     },
-  },
-};
-
+  };
 
   const headerRef = useRef<HTMLElement>(null);
 
@@ -143,15 +122,26 @@ export function Navbar({ userData }: NavbarProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  console.log('Navbar - userData:', userData);
-  console.log('Navbar - activeSubmenu:', activeSubmenu);
-  console.log('Navbar - isScrolled:', isScrolled);
+  // Scroll to section handler
+  const handleScrollToSection = (sectionId: string) => {
+    if (typeof window !== 'undefined') {
+      gsap.to(window, {
+        duration: 1,
+        scrollTo: {
+          y: `#${sectionId}`,
+          offsetY: 120, // Offset for navbar + news scroller height
+        },
+        ease: 'power2.inOut',
+      });
+    }
+    setIsOpen(false); // Close mobile menu
+  };
 
   return (
     <header
       ref={headerRef}
       className={cn(
-        'sticky top-0 z-50 w-full border-b shadow-sm transition-all duration-200  ',
+        'sticky top-[60px] z-40 w-full border-b shadow-sm transition-all duration-200',
         isScrolled ? 'bg-[#99a1af]' : 'bg-gray-400'
       )}
       dir="rtl"
@@ -217,15 +207,15 @@ export function Navbar({ userData }: NavbarProps) {
                               variants={submenuVariants}
                             >
                               {item.children.map((child) => (
-                                <Link
+                                <button
                                   key={child.title}
-                                  href={child.href || '#'}
-                                  target={child.target || '_self'}
+                                  onClick={() =>
+                                    child.sectionId && handleScrollToSection(child.sectionId)
+                                  }
                                   className={cn(
                                     'text-sm py-1.5 block font-arabic text-right',
                                     'hover:text-sky-600 hover:bg-sky-50 rounded-md px-3 transition-all duration-300'
                                   )}
-                                  onClick={() => setIsOpen(false)}
                                 >
                                   <motion.div
                                     className="flex flex-col items-end"
@@ -239,26 +229,24 @@ export function Navbar({ userData }: NavbarProps) {
                                       </span>
                                     )}
                                   </motion.div>
-                                </Link>
+                                </button>
                               ))}
                             </motion.div>
                           )}
                         </AnimatePresence>
                       </>
                     ) : (
-                      <Link
-                        href={item.href || '#'}
-                        target={item.target || '_self'}
+                      <button
+                        onClick={() => item.sectionId && handleScrollToSection(item.sectionId)}
                         className={cn(
-                          'font-medium font-arabic py-2 text-base',
+                          'font-medium font-arabic py-2 text-base text-right',
                           'hover:text-sky-600 hover:bg-sky-50 rounded-md px-3 transition-all duration-300'
                         )}
-                        onClick={() => setIsOpen(false)}
                       >
                         <motion.div whileHover={{ x: 5 }} transition={{ duration: 0.2 }}>
                           {item.title}
                         </motion.div>
-                      </Link>
+                      </button>
                     )}
                   </div>
                 ))}
@@ -268,27 +256,25 @@ export function Navbar({ userData }: NavbarProps) {
         </div>
 
         {/* Logo and Company Name */}
-       <Link
-  href="/"
-  className="md:flex gap-1.5 items-center mx-4 font-sans focus:outline-none focus:ring-0"
->
+        <Link
+          href="/"
+          className="md:flex gap-1.5 items-center mx-4 font-sans focus:outline-none focus:ring-0"
+        >
+          <div className="hidden sm:block">
+            <RotatingLogo />
+          </div>
 
-  <div className="hidden sm:block">  
-    <RotatingLogo />
-  </div>
-
-  <motion.span
-    className={cn(
-      "inline-block sm:text-lg text-sm bg-clip-text text-black animate-pulse",
-      isScrolled ? "font-extrabold text-white" : "font-extrabold "
-    )}
-    whileHover={{ scale: 1.05 }}
-    transition={{ duration: 0.2 }}
-  >
-    شركة مصافي الوسط - مصفى الدورة
-  </motion.span>
-</Link>
-
+          <motion.span
+            className={cn(
+              'inline-block sm:text-lg text-sm bg-clip-text text-black animate-pulse',
+              isScrolled ? 'font-extrabold text-white' : 'font-extrabold'
+            )}
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.2 }}
+          >
+            شركة مصافي الوسط - مصفى الدورة
+          </motion.span>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex flex-1 justify-center items-center gap-2">
@@ -323,7 +309,7 @@ export function Navbar({ userData }: NavbarProps) {
                     {activeSubmenu === item.title && (
                       <motion.div
                         className={cn(
-                          'absolute right-0 mt-0.5 w-64 rounded-xl bg-popover shadow-xl border border-sky-100/50',   // this line will mt-0.5 margin menu from top  
+                          'absolute right-0 mt-0.5 w-64 rounded-xl bg-popover shadow-xl border border-sky-100/50',
                           'backdrop-blur-sm'
                         )}
                         initial="hidden"
@@ -333,12 +319,13 @@ export function Navbar({ userData }: NavbarProps) {
                       >
                         <div className="py-2">
                           {item.children.map((child) => (
-                            <Link
+                            <button
                               key={child.title}
-                              href={child.href || '#'}
-                              target={child.target || '_self'}
+                              onClick={() =>
+                                child.sectionId && handleScrollToSection(child.sectionId)
+                              }
                               className={cn(
-                                'text-sm block px-4 py-2 font-arabic text-right',
+                                'text-sm block px-4 py-2 font-arabic text-right w-full',
                                 'hover:text-sky-600 hover:bg-sky-50 rounded-md transition-all duration-300'
                               )}
                             >
@@ -354,7 +341,7 @@ export function Navbar({ userData }: NavbarProps) {
                                   </span>
                                 )}
                               </motion.div>
-                            </Link>
+                            </button>
                           ))}
                         </div>
                       </motion.div>
@@ -362,9 +349,8 @@ export function Navbar({ userData }: NavbarProps) {
                   </AnimatePresence>
                 </>
               ) : (
-                <Link
-                  href={item.href || '#'}
-                  target={item.target || '_self'}
+                <button
+                  onClick={() => item.sectionId && handleScrollToSection(item.sectionId)}
                   className={cn(
                     'font-arabic text-base font-semibold px-4 py-2',
                     'hover:text-sky-600 hover:bg-sky-50 rounded-lg transition-all duration-300'
@@ -373,15 +359,19 @@ export function Navbar({ userData }: NavbarProps) {
                   <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
                     {item.title}
                   </motion.div>
-                </Link>
+                </button>
               )}
             </div>
           ))}
         </nav>
 
         {/* System Name */}
-        <Link href="/" className="hidden md:flex  items-center mx-4 font-arabic">
-          <motion.div className="flex items-center " whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+        <Link href="/" className="hidden md:flex items-center mx-4 font-arabic">
+          <motion.div
+            className="flex items-center"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.2 }}
+          >
             <span
               className={cn(
                 'inline-block text-lg bg-clip-text text-black animate-pulse',
@@ -392,12 +382,6 @@ export function Navbar({ userData }: NavbarProps) {
             </span>
           </motion.div>
         </Link>
-
-        
-  
-
-        {/* {userData ? <UserDropdown userData={userData} /> : null } */}
-
       </div>
     </header>
   );

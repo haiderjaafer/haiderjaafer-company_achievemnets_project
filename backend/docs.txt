@@ -1,0 +1,13 @@
+async def get_async_db() -> AsyncGenerator[AsyncSession, None]:
+    async with AsyncSessionLocal() as session:
+        yield session
+
+In Python, yield session and the function signature 
+async def get_async_db() -> AsyncGenerator[AsyncSession, None]: are intrinsically linked.
+The yield statement is what actually creates the AsyncGenerator described in your return type. 
+Here is the connection between the two:Yield defines the Return Type: In Python, adding a yield statement to a function automatically transforms it from a regular function into a generator function.
+Therefore, the return type must be declared as an AsyncGenerator (or similar iterator type) because the function no longer returns a single value; 
+it returns a generator object that produces values over time.The Type Parameters: The type hint AsyncGenerator[AsyncSession,
+None] specifically matches what you wrote in the function body:AsyncSession: This is the type of the value you are yielding (the session object).None: This indicates that the generator does not expect any value to be sent back into it during the request.Lifecycle Management: Unlike a standard return, 
+which would immediately exit the function and close the async with block (thus closing your database connection before you could use it), 
+yield allows the function to pause and provide the session to your API route. 
