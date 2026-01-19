@@ -95,7 +95,7 @@ async def upload_media_with_files(
             is_active=is_active_bool  # Use converted bool
         )
         
-        # logger.info(f"✅ Media created successfully: ID={media.id}, Files={len(media_paths)}")
+        # logger.info(f" Media created successfully: ID={media.id}, Files={len(media_paths)}")
         
         # Build response with uploaded file details
         uploaded_files = [

@@ -57,6 +57,8 @@ async def lifespan(app: FastAPI):
 
     yield  #  Allows the application to continue startup
 
+    await engine.dispose()
+
 
 def create_app() -> FastAPI:              #create_app() just defines a factory function returning a FastAPI app.
 

@@ -11,3 +11,53 @@ it returns a generator object that produces values over time.The Type Parameters
 None] specifically matches what you wrote in the function body:AsyncSession: This is the type of the value you are yielding (the session object).None: This indicates that the generator does not expect any value to be sent back into it during the request.Lifecycle Management: Unlike a standard return, 
 which would immediately exit the function and close the async with block (thus closing your database connection before you could use it), 
 yield allows the function to pause and provide the session to your API route. 
+
+
+-------------------------------------------------
+
+Request comes in
+↓
+FastAPI calls get_async_db() → async generator object
+↓
+Enter async with → create AsyncSession
+↓
+yield session → give session to endpoint
+↓
+endpoint runs queries with db
+↓
+endpoint finishes → generator resumes
+↓
+async with exits → session closed
+↓
+Request complete
+----------------------------------------------------
+
+Mental Model
+Think of it like this:
+
+Generator function = factory for sessions.
+
+Yield = “Here’s the session, use it for this request.”
+
+After yield = “Okay, request is done, now I’ll clean up
+
+------------------------------------------------------------
+
+async with 
+is a Python syntax used with context managers in asynchronous code, 
+allowing you to await the setup and teardown of resources (like network connections or files) while the main program continues running other tasks,
+preventing the thread from blocking and improving efficiency for I/O-bound operations
+
+-----------------------------------------------------------------
+
+A context manager 
+in Python is an object that guarantees the proper setup and teardown of resources,
+ even if errors occur during a program's execution
+
+ such as 
+Opening and closing files (open() function)
+Connecting and disconnecting from databases or networks
+
+-------------------------------------------------------------
+
+ 

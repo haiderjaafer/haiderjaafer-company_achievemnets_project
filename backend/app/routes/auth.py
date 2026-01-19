@@ -48,7 +48,7 @@ def set_auth_cookie(response: Response, token: str):
             samesite="lax",          # Lax for cross-origin in development
             max_age=60 * 60 * 24 * 30 ,    # 30 days
             path="/",                # Available site-wide
-            # 🔥 DO NOT set domain for localhost
+            #  DO NOT set domain for localhost
             # domain="127.0.0.1"
         )
 
@@ -236,7 +236,7 @@ async def test_auth(
     Simple test endpoint to verify authentication
     """
     return {
-        "message": "✅ Authentication working!",
+        "message": " Authentication working!",
         "user": {
             "id": current_user.id,
             "username": current_user.username,
