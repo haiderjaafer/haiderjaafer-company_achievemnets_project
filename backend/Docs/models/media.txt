@@ -1,0 +1,66 @@
+category_id = Column(Integer, ForeignKey("Categories.id"), nullable=False, index=True)
+
+ForeignKey("Categories.id") mean Categories tabke and id Column
+
+----------------------------------------------------------
+
+relationships
+
+category = relationship(
+        "Category", 
+        back_populates="media"
+    )
+
+
+Means in plain english:
+On the Media object, create an attribute called category.
+It points to a Category object On the Category object,
+ the matching attribute is called media.
+
+
+ so in Category model or object
+
+  media = relationship(
+        "Media", 
+        back_populates="category"
+    )   
+
+
+
+mapping  table
+
+category	Attribute on Media instance
+"Category"	Target model class
+"media"	Attribute name on Category
+back_populates	Connect both sides
+
+
+1-what mean relationship("Category")
+
+* This is the target model class.
+* This relationship points to the Category model class Category(Base).
+* category is a Python attribute on the Media object epresents The Category object that this Media belongs to .
+
+
+
+2-What does back_populates DO? back_populates="category"
+
+* This is the name of the attribute on Category model It must match exactly this in Category see below.
+* It creates a two-way link. so both sides know each other happening.
+
+* in media model as 
+category = relationship(
+        "Category", 
+        back_populates="media"
+    )
+
+* in Category model
+
+media = relationship(
+        "Media", 
+        back_populates="category"
+    )
+
+
+
+3- 
